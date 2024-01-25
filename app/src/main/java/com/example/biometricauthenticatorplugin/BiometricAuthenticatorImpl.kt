@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
+import androidx.biometric.BiometricPrompt
 
 
 internal class BiometricAuthenticatorImpl : BiometricAuthenticator {
@@ -70,10 +71,19 @@ internal class BiometricAuthenticatorImpl : BiometricAuthenticator {
                 BIOMETRIC_STRONG or DEVICE_CREDENTIAL
             )
         }
-        activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        val launcher=activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
 
         }
-        activity.startActivity(enrollIntent)
+        launcher.launch(enrollIntent)
+    }
+
+    override fun showMessage(){
+        val promptInfo=BiometricPrompt.PromptInfo.Builder()
+            .setTitle("제목")
+            .setSubtitle("부제목")
+            .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
+            .build()
+
     }
 
     private fun getAuthenticationState(context: Context): Int {

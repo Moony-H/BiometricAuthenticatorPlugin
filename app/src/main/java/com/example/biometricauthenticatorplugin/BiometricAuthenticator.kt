@@ -7,4 +7,5 @@ interface BiometricAuthenticator {
     fun isAvailable(context: Context):Boolean
     fun requestBiometricEnrollment(activity:AppCompatActivity)
     fun checkBiometricAvailableState(context: Context,callback: BioAuthenticatorAvailableCallback)
+    fun showMessage()
 }
